@@ -1,8 +1,0 @@
-jni/antidote
-bin/
-gen/
-libs/
-obj/
-.classpath
-.project
-.settings
