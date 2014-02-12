@@ -35,6 +35,7 @@ public class HealthService extends Service {
 	JniBridge antidote;
 
 	private static final int [] HEALTH_PROFILE_SOURCE_DATA_TYPES = {0x1004, 0x1007, 0x1029, 0x100f};
+	//private static final int [] HEALTH_PROFILE_SOURCE_DATA_TYPES = {0x1004};
 
 	private BluetoothAdapter mBluetoothAdapter;
 	private Messenger mHealthService;
@@ -285,7 +286,12 @@ public class HealthService extends Service {
 		Log.w(TAG, "initialize()");
 		Intent intent = new Intent(this, BluetoothHDPService.class);
 		startService(intent);
-		bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+		boolean hdpService = bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+		if (hdpService) {
+			Log.i("HSS", "Bind Bluetooth HDP Service OK!");
+		} else {
+			Log.e("HSS", "Bind Bluetooth HDP Service Failed!");
+		}
 	}
 
 	// Intent filter and broadcast receive to handle Bluetooth on event.
